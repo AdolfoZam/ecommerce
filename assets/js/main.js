@@ -5,7 +5,7 @@ const loadComponent = () => {
   setTimeout(() => {
     loader.classList.add("hide");
   }, 2000);
-};
+}
 
 // -------DARK MODE---------------
 const themeIcon = document.getElementById("theme-btn")
@@ -51,14 +51,10 @@ const items = [
   // MOSTRAR OCULTAR CARRITO
   const cart = document.getElementById("cart-container")
   const shopIcon = document.getElementById("cart-shop")
-  const shopCloseIcon = document.getElementById("close-cart")
+  const shopCloseIcon = document.getElementById
+  ("close-cart")
 
-  shopIcon.addEventListener("click", () => {
-    cart.classList.remove("hide")
-  })
-  shopCloseIcon.addEventListener("click", () => {
-    cart.classList.add("hide")
-  })
+ 
 
   // MOSTRAR PRODUCTOS EN PÁGINA
 const showProducts = () => {
@@ -68,25 +64,85 @@ let fragment = ``
 
 items.forEach(producto => {
   fragment += `
-  <div class="product-card">
+  <div class="product-card" id="${producto.id}">
     <img src="${producto.image}" alt="">
-  </div>
-  <button class="btn btn-add"></button>
-  <div class="product-info">
-    <span class="price">$${producto.price}</span>
-    <span class="Stock">Stock:${producto.quantity}</span>
-    <span class="product-type">${producto.name}</span>
+    <p>$${producto.price}</p>
+    <p>Stock:${producto.quantity}</p>
+    <p>${producto.name}</p>
+    <button class="btn-add">ADD</button>
   </div>
   `
-
 })
 
   productContainer.innerHTML = fragment
+
+  cartFunctionality()
+}
+
+//AGREGAR PRODUCTOS AL CARRO
+function cartFunctionality(){
+  const btns=document.querySelectorAll(".btn-add")
+  const cart = []
+  btns.forEach(button => {
+      button.addEventListener("click", e => {
+          const id = parseInt(e.target.parentElement.id)
+          const selectedProduct = items.find( item => item.id===id)
+          
+          let index = cart.indexOf(selectedProduct)
+          if(index !== -1){
+              if(cart[index].quantity<=cart[index].cantidad){
+                  alert("no hay stock")
+              }else{
+                  cart[index].cantidad++
+              }
+
+            } else{
+              selectedProduct.cantidad = 1
+              cart.push(selectedProduct)
+          }
+          console.log(cart)
+          showProducts(cart)
+        })
+  })
+}
+
+//SUMAR PRODUCTOS Y MOSTRARLOS EN EL CARRO
+function showProductsInCart(cart){
+ let total=0
+ let contador=0
+ const conPrincipal = document.querySelector(".con-items")
+ const cartContainer = document.getElementById("id--carro")
+ let fragmento= ``
+ cart.forEach(producto => {
+  fragmento+=`<div class="producto-select" id="${producto.id}">
+  <img src="${producto.image}" alt="">
+  <p>$${producto.price}</p>
+    <p>Stock:${producto.cantidad}</p>
+    <p>${producto.name}</p>
+    </div>
+   `
+   contador+=producto.cantidad
+   total+=producto.cantidad * producto.price
+  
+ })
+console.log(total)
+console.log(contador)
+cartContainer.innerHTML = fragmento
+conPrincipal.innerHTML = contador
+
 }
 
   document.addEventListener("DOMContentLoaded", () => {
-    loadComponent();
+    loadComponent()
     showProducts()
-  });
+  })
+
+  shopIcon.addEventListener("click", () => {
+    cart.classList.remove("hide")
+  })
+
+  shopCloseIcon.addEventListener("click", () => {
+    cart.classList.add("hide")
+  })
 
   
