@@ -136,9 +136,11 @@ h1,h2,h3{
 }
 
 .section-showall{
-  margin-top: 4rem;
-  display: grid;
-  grid-template-columns: 50% 50%;
+   display: grid;
+   gap: 1rem;
+   grid-auto-rows: 20rem;
+   grid-template-columns: repeat(auto-fill,minmax(10rem,1fr));
+  
 }
 
 .title-showall{
@@ -233,6 +235,7 @@ nav{
   display: flex;
   align-items: center;
   color: var(--title-color);
+  gap: 1rem;  
 }
 
 .nav-logo{
@@ -306,6 +309,9 @@ nav{
   border-radius: 50%;
   padding: 00.5rem;
   font-size: 1.2rem;
+}
+.products-list{
+  width: 100px;
 }
 
 

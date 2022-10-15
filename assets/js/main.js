@@ -83,15 +83,17 @@ items.forEach(producto => {
 function cartFunctionality(){
   const btns=document.querySelectorAll(".btn-add")
   const cart = []
+
   btns.forEach(button => {
       button.addEventListener("click", e => {
           const id = parseInt(e.target.parentElement.id)
           const selectedProduct = items.find( item => item.id===id)
           
           let index = cart.indexOf(selectedProduct)
+
           if(index !== -1){
               if(cart[index].quantity<=cart[index].cantidad){
-                  alert("no hay stock")
+                  alert("no hay stock")//agregar el toast
               }else{
                   cart[index].cantidad++
               }
@@ -101,12 +103,13 @@ function cartFunctionality(){
               cart.push(selectedProduct)
           }
           console.log(cart)
-          showProducts(cart)
+          //showProducts(cart)
         })
   })
 }
 
 //SUMAR PRODUCTOS Y MOSTRARLOS EN EL CARRO
+/*
 function showProductsInCart(cart){
  let total=0
  let contador=0
@@ -114,12 +117,12 @@ function showProductsInCart(cart){
  const cartContainer = document.getElementById("id--carro")
  let fragmento= ``
  cart.forEach(producto => {
-  fragmento+=`<div class="producto-select" id="${producto.id}">
-  <img src="${producto.image}" alt="">
-  <p>$${producto.price}</p>
-    <p>Stock:${producto.cantidad}</p>
-    <p>${producto.name}</p>
-    </div>
+  fragmento+=`<div class="products-select" id="${producto.id}">
+     <img src="${producto.image}" alt="">
+     <p>$${producto.price}</p>
+     <p>Stock:${producto.cantidad}</p>
+     <p>${producto.name}</p>
+     </div>
    `
    contador+=producto.cantidad
    total+=producto.cantidad * producto.price
@@ -131,7 +134,7 @@ cartContainer.innerHTML = fragmento
 conPrincipal.innerHTML = contador
 
 }
-
+*/
   document.addEventListener("DOMContentLoaded", () => {
     loadComponent()
     showProducts()
